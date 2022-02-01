@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+    <link href="public/css/style.css" rel="stylesheet">
+    <script src="public/js/script.js"></script>
 </head>
 <body>
-	<h1>Hello</h1>
-	<input id="ajaxfile" type="file" />
-	<br />
-	<button onclick="uploadFile()">Upload</button>
+<div class="main-content">
+    <h2>Convert Excel to Json</h2>
+    <hr color="green">
+    <div class="progress-wrapper">
+        <div class="progress" id="progress-bar-file"></div>
+    </div>
+    <form id="form">
+        <p>Choose an Excel file to upload: </p>
+        <label class="file">
+            <input type="file" id="file-to-upload" name="uploaded-file" aria-label="File browser example">
+            <span class="file-custom"> Choose File</span>
+        </label>
+        <button onclick="postFile()" type="button">Upload File</button>
+    </form>
 
-	<!-- Ajax to Java File Upload Logic -->
-	<script>
-		async function uploadFile() {
-			let formData = new FormData();
-			formData.append("file", ajaxfile.files[0]);
-			await fetch('fileuploadservlet', {
-				method : "POST",
-				body : formData
-			});
-			alert('The file upload with Ajax and Java was a success!');
-		}
-	</script>
+    <h1 id="response-text" style="display: none"></h1>
+</div>
+
 </body>
 </html>

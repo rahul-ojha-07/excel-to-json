@@ -54,6 +54,39 @@ public class ExcelToJsonServiceImpl implements ExcelToJsonService {
         return true;
     }
 
+
+    public String createJsonStringText(String filePath) {
+        String jsonString = "";
+        try {
+            // create a excel workbook from the Excel File Path
+            Workbook excelWorkBook = WorkbookFactory.create(new File(filePath));
+            // find out the number of sheets on the excel workbook
+            int totalSheetNumber = excelWorkBook.getNumberOfSheets();
+            // iterate for each sheet
+            for (int i = 0; i < totalSheetNumber; i++) {
+                // get sheet at index i
+                Sheet sheet = excelWorkBook.getSheetAt(i);
+                // get sheet name
+                String sheetName = sheet.getSheetName();
+                if (sheetName != null && sheetName.length() > 0) {
+                    // get each row as a list inside one list
+                    List<List<String>> sheetDataTable = getSheetDataList(sheet);
+                    // convert sheetDataTable to a JSON String
+                    jsonString = getJSONStringFromList(sheetDataTable);
+                    // create the name of the sheet
+//                    String jsonFileName = sheet.getSheetName() + ".json";
+                    // create a file and save it with the sheet name
+//                    writeStringToFile(jsonString, jsonFileName);
+                }
+            }
+            // close whole workbook
+            excelWorkBook.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return jsonString;
+    }
+
      @Override
      public Boolean createTextFile(String filePath) {
         try {
