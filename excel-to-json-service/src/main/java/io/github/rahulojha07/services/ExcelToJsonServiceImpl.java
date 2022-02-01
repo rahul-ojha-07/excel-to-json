@@ -91,7 +91,7 @@ public class ExcelToJsonServiceImpl implements ExcelToJsonService {
         try {
             Workbook excelWorkBook = WorkbookFactory.create(new File(filePath));
             int totalSheetNumber = excelWorkBook.getNumberOfSheets();
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < totalSheetNumber; i++) {
                 Sheet sheet = excelWorkBook.getSheetAt(i);
                 String sheetName = sheet.getSheetName();
                 if (sheetName != null && sheetName.length() > 0) {
